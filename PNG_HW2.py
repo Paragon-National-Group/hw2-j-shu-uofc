@@ -18,9 +18,22 @@
 # Ex) iterative_palindrome(1) -> true
 #     iterative_palindrome(12) -> false
 #     iterative_palindrome(2468642) -> true
+from platform import win32_edition
+
+
 def iterative_palindrome(n):
-    #TODO
-    return
+    val = n
+    flipped = 0
+    while val > 0:
+        digit = val % 10
+        flipped = flipped * 10 + digit
+        val = val // 10
+    is_palindrome = False
+    if flipped == n:
+        is_palindrome = True
+    return is_palindrome
+
+iterative_palindrome(2468642)
 
 # This function is the same as iterative_palindrome() except instead of using a
 # loop, implement the function in a recursive way.
@@ -28,8 +41,23 @@ def iterative_palindrome(n):
 #     recursive_palindrome(12) -> false
 #     recursive_palindrome(2468642) -> true
 def recurisve_palindrome(n):
-    #TODO
-    return
+    global flipped
+    flipped = 0
+
+    def reverse_number(val):
+        global flipped
+        if(val > 0):
+            digit = val % 10
+            flipped = flipped * 10 + digit
+            reverse_number(val // 10)
+        return flipped
+    
+    reversed = int(reverse_number(n))
+    if (reversed == n):
+        return True
+    else:
+        return False
+recurisve_palindrome(2468642)
 
 # Helper function for sum_factorials(). Takes a number as an argument and returns
 # the factorial of that number.
@@ -37,8 +65,14 @@ def recurisve_palindrome(n):
 #     factorial(4) -> 24
 #     factorial(7) -> 5040
 def factorial(n):
-    #TODO
-    return
+    val = n
+    num = 1
+    if n == 0:
+        return 1
+    while (val > 0):
+        num =  num  * val
+        val = val - 1 
+    return num
 
 # Helper function for sum_factorials(). Takes a number as an argument and returns
 # a boolean value of true or false that shows whether the inputted number is a 
@@ -47,14 +81,19 @@ def factorial(n):
 #     is_prime(12) -> false
 #     is_prime(23) -> true
 def is_prime(n):
-    #TODO
-    return
+    val = n
+    factor = n-1
+    while (factor > 1):
+        if val % factor == 0:
+            return False
+        factor = factor - 1
+    return True
 
 # Function that creates a node to help testing of sum_factorials()
 class Node:
     def __init__(self, content): 
         self.content = content
-        self.content = next
+        self.next = next
 
 # Function to insert a node to the beginning of a linked list
 def push(head_ptr, new_content):
@@ -75,5 +114,17 @@ def push(head_ptr, new_content):
 #     lst = push(lst, 6)
 #     sum_factorials(lst) -> 128
 def sum_factorials(head_ptr):
-    #TODO
-    return
+    sum = 0
+    while(head_ptr != None):
+        if is_prime(head_ptr.content):
+            sum = sum + factorial(head_ptr.content)
+        head_ptr = head_ptr.next
+    return sum
+
+lst = None
+lst = push(lst, 2)
+lst = push(lst, 14)
+lst = push(lst, 5)
+lst = push(lst, 3)
+lst = push(lst, 6)
+sum_factorials(lst)
